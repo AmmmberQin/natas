@@ -186,3 +186,31 @@ we need find the magic sessionid for admin, just 640 try, easy bruteforce
 This page uses mostly the same code as the previous level, but session IDs are no longer sequential
 
 analysis the cookie "PHPSESSID" when I input admin as username "3334322d61646d696e" hex of course, convert based on ascii table "342-admin" good
+
+## natas20
+
+well from debug mode, I hit "Session file doesn't exist" all the time
+
+so what will happen if the session file exist
+
+```php
+function myread($sid) {  
+    ...
+    if(!file_exists($filename)) { 
+        debug("Session file doesn't exist"); 
+        return ""; 
+    } 
+    debug("Reading from ". $filename); 
+    $data = file_get_contents($filename); 
+    $_SESSION = array(); 
+    foreach(explode("\n", $data) as $line) { 
+        debug("Read [$line]"); 
+    $parts = explode(" ", $line, 2); 
+    if($parts[0] != "") $_SESSION[$parts[0]] = $parts[1]; 
+    } 
+    return session_encode(); 
+} 
+```
+it will set `$_SESSION[$parts[0]] = $parts[1]` hmm good what is $parts[0] is admin and $parts[1] is 1 then we can get the password
+
+then set "name" = "admin 1" let's try, ah "DEBUG: Read [name admin 1]" not right as `$data .= "$key $value\n";`. but easy to by pass 
