@@ -139,3 +139,50 @@ similar with natas15, but this time without output
     } 
 ```
 this can be a "Time-Based Blind SQL Injection Attacks"
+
+## natas18
+
+```php
+$maxid = 640;
+...
+if(my_session_start()) { 
+    print_credentials(); 
+    $showform = false; 
+} else { 
+    if(array_key_exists("username", $_REQUEST) && array_key_exists("password", $_REQUEST)) { 
+    session_id(createID($_REQUEST["username"])); 
+    session_start(); 
+    $_SESSION["admin"] = isValidAdminLogin(); 
+    debug("New session started"); 
+    $showform = false; 
+    print_credentials(); 
+    } 
+}  
+```
+
+```php
+function my_session_start() { /* {{{ */ 
+    if(array_key_exists("PHPSESSID", $_COOKIE) and isValidID($_COOKIE["PHPSESSID"])) { 
+    if(!session_start()) { 
+        debug("Session start failed"); 
+        return false; 
+    } else { 
+        debug("Session start ok"); 
+        if(!array_key_exists("admin", $_SESSION)) { 
+        debug("Session was old: admin flag set"); 
+        $_SESSION["admin"] = 0; // backwards compatible, secure 
+        } 
+        return true; 
+    } 
+    } 
+
+    return false; 
+} 
+```
+we need find the magic sessionid for admin, just 640 try, easy bruteforce
+
+## natas19
+
+This page uses mostly the same code as the previous level, but session IDs are no longer sequential
+
+analysis the cookie "PHPSESSID" when I input admin as username "3334322d61646d696e" hex of course, convert based on ascii table "342-admin" good
