@@ -43,3 +43,13 @@ if(array_key_exists("revelio", $_GET)) {
 ```
 
 hmm not allow redirect??
+
+## natas25
+
+```php
+$log=$log . " " . $_SERVER['HTTP_USER_AGENT'];
+$log=$log . " \"" . $message ."\"\n"; 
+$fd=fopen("/var/www/natas/natas25/logs/natas25_" . session_id() .".log","a");
+```
+
+inject something in User-Agent, and then read from the log file
