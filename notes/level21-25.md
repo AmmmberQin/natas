@@ -63,11 +63,9 @@ If I set $_GET['password'] equal to an empty array, then strcmp would return a N
 ## natas25
 
 ```php
-// dont let ppl steal our passwords
-if(strstr($filename,"natas_webpass")){
-    logRequest("Illegal file access detected! Aborting!");
-    exit(-1);
-}
+$log=$log . " " . $_SERVER['HTTP_USER_AGENT'];
+$log=$log . " \"" . $message ."\"\n"; 
+$fd=fopen("/var/www/natas/natas25/logs/natas25_" . session_id() .".log","a");
 ```
 
-haha I think that's what I need to do
+inject something in User-Agent, and then read from the log file
