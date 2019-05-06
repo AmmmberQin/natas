@@ -12,7 +12,7 @@ def natas26():
     if stderr:
         print("Fail to find password")
         return
-    drawing = stdout.decode("utf-8")
+    drawing = stdout.decode("utf-8").replace("\n","")
 
     cookies = {"drawing":drawing}
     get_page(26, username, passowrd, cookies=cookies)
